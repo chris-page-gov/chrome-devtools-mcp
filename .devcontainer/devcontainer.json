@@ -1,0 +1,39 @@
+{
+  "name": "Chrome DevTools MCP",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "DEBUG": "mcp:*"
+  },
+  "containerEnv": {
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  },
+  // Using a named volume for optional Chrome profile/cache isolation inside container.
+  // If you wish to reuse a host profile instead, create the host directory first and
+  // replace this block with (ensure the path exists):
+  // "mounts": [
+  //   "source=${localEnv:HOME}/.cache/chrome-devtools-mcp,target=/workspaces/.cache/chrome-devtools-mcp,type=bind,consistency=cached"
+  // ],
+  "mounts": [
+    "source=chrome-devtools-mcp-cache,target=/workspaces/.cache/chrome-devtools-mcp,type=volume"
+  ],
+  "runArgs": [
+    "--init",
+    "--shm-size=1g"
+  ],
+  "postCreateCommand": "npm install",
+  "postStartCommand": "bash -lc \"echo Dev container ready: Node $(node -v), npm $(npm -v)\""
+}

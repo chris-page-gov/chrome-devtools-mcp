@@ -1,0 +1,23 @@
+{
+  "name": "OpenLibrary Mesh MCP DevContainer",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1.7.1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "forwardPorts": [4000],
+  "remoteEnv": {
+    "MESH_GRAPHQL": "http://localhost:4000/graphql"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+  "postCreateCommand": "npm install && npm i -g npm@11.6.0",
+  "postStartCommand": "echo 'Dev container ready: Node $(node -v), npm $(npm -v)'"
+}
